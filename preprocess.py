@@ -1,10 +1,11 @@
 import pandas as pd
 import os
 
-# ensure folder exists
+# ensure data folder exists
 os.makedirs("data", exist_ok=True)
 
-# load dataset
+print("Loading dataset...")
+
 df = pd.read_csv("data/uber.csv")
 
 print("Original shape:", df.shape)
@@ -18,17 +19,17 @@ df["pickup_datetime"] = pd.to_datetime(df["pickup_datetime"])
 # extract hour
 df["hour"] = df["pickup_datetime"].dt.hour
 
-# calculate distance (simple approximation)
+# compute distance (simple approximation)
 df["distance_km"] = (
     abs(df["pickup_latitude"] - df["dropoff_latitude"]) +
     abs(df["pickup_longitude"] - df["dropoff_longitude"])
 ) * 111
 
-# keep only useful columns
+# select relevant columns
 df = df[["distance_km", "hour", "fare_amount"]]
 df.rename(columns={"fare_amount": "fare"}, inplace=True)
 
-# reduce size (VERY IMPORTANT for DVC)
+# reduce dataset size (important for DVC)
 df = df.sample(2000, random_state=42)
 
 # save cleaned dataset
