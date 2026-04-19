@@ -20,8 +20,12 @@ jobs:
 
     - name: Install dependencies
       run: |
-        pip install pandas scikit-learn mlflow dvc
+        pip install pandas scikit-learn mlflow
 
-    - name: Run training pipeline
+    - name: Run preprocessing
+      run: |
+        python preprocess.py
+
+    - name: Train model
       run: |
         python src/train.py
