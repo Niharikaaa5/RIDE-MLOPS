@@ -1,0 +1,5 @@
+outs:
+- md5: d31f2bf3b458e6bb71fb1e02d2d71f30
+  size: 52391
+  hash: md5
+  path: ride_data.csv
