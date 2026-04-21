@@ -1,7 +1,6 @@
 import pandas as pd
 import os
 
-# ensure data folder exists
 os.makedirs("data", exist_ok=True)
 
 print("Loading dataset...")
@@ -19,20 +18,27 @@ df["pickup_datetime"] = pd.to_datetime(df["pickup_datetime"])
 # extract hour
 df["hour"] = df["pickup_datetime"].dt.hour
 
-# compute distance (simple approximation)
+# compute distance
 df["distance_km"] = (
     abs(df["pickup_latitude"] - df["dropoff_latitude"]) +
     abs(df["pickup_longitude"] - df["dropoff_longitude"])
 ) * 111
 
-# select relevant columns
-df = df[["distance_km", "hour", "fare_amount"]]
+# remove outliers
+df = df[df["distance_km"] < 50]
+df = df[df["fare_amount"] < 100]
+
+# feature engineering
+df["distance_hour_interaction"] = df["distance_km"] * df["hour"]
+
+# select columns
+df = df[["distance_km", "hour", "distance_hour_interaction", "fare_amount"]]
 df.rename(columns={"fare_amount": "fare"}, inplace=True)
 
-# reduce dataset size (important for DVC)
+# reduce dataset size
 df = df.sample(2000, random_state=42)
 
-# save cleaned dataset
+# save
 df.to_csv("data/ride_data.csv", index=False)
 
 print("Processed dataset saved:", df.shape)
