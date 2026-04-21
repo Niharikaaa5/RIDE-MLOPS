@@ -1,6 +1,5 @@
 .dvc/cache/
 .dvc/tmp/
-logs/
 .venv/
 mlruns/
 model/

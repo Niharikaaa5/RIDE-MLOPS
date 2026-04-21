@@ -7,10 +7,12 @@ import os
 os.makedirs("logs", exist_ok=True)
 
 # logging setup
+
 logging.basicConfig(
-    filename="logs/logs.txt",
+    filename=os.path.join(os.getcwd(), "logs", "logs.txt"),
     level=logging.INFO,
-    format="%(asctime)s - %(message)s"
+    format="%(asctime)s - %(message)s",
+    force=True   # 🔥 important (forces reset)
 )
 
 app = FastAPI()
