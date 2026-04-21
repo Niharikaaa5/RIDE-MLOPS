@@ -17,20 +17,26 @@ df = pd.read_csv("data/ride_data.csv")
 X = df.drop("fare", axis=1)
 y = df["fare"]
 
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42
+)
 
-# define models
+# models
 models = {
     "LinearRegression": LinearRegression(),
-    "DecisionTree": DecisionTreeRegressor(),
-    "RandomForest": RandomForestRegressor(n_estimators=100)
+    "DecisionTree": DecisionTreeRegressor(max_depth=10),
+    "RandomForest": RandomForestRegressor(
+        n_estimators=200,
+        max_depth=10,
+        random_state=42
+    )
 }
 
 best_model = None
 best_score = -999
 best_name = ""
 
-# train + compare
+# training loop
 for name, model in models.items():
 
     with mlflow.start_run(run_name=name):
