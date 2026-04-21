@@ -1,6 +1,10 @@
 from fastapi import FastAPI
 import pickle
 import logging
+import os
+
+# ensure logs folder exists
+os.makedirs("logs", exist_ok=True)
 
 # logging setup
 logging.basicConfig(
@@ -24,8 +28,12 @@ def predict(data: dict):
         distance = data["distance_km"]
         hour = data["hour"]
 
-        prediction = model.predict([[distance, hour]])
-        result = round(float(prediction[0]),2)
+        # ✅ compute new feature internally
+        interaction = distance * hour
+
+        # ✅ now matches training features
+        prediction = model.predict([[distance, hour, interaction]])
+        result = round(float(prediction[0]), 2)
 
         # log request
         logging.info(f"{data} -> {result}")

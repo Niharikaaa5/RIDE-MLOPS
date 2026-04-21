@@ -5,14 +5,14 @@ stages:
     deps:
     - path: data/ride_data.csv
       hash: md5
-      md5: d31f2bf3b458e6bb71fb1e02d2d71f30
-      size: 52391
+      md5: 7a86197ea6b643b0cc3580993aadf7ad
+      size: 87671
     - path: src/train.py
       hash: md5
-      md5: 323a3c6c8c81b07d12a8cc42935d1df3
-      size: 1021
+      md5: 59386b498bf2dbd960d1b7e146c28bf8
+      size: 1596
     outs:
     - path: model/model.pkl
       hash: md5
-      md5: 7049eb66f5aeadf7a077a4cbffd6002b
-      size: 13693351
+      md5: 13f4eef8a9baf305e99b246f65d973f9
+      size: 603
