@@ -41,6 +41,6 @@ def predict(data: dict):
         logging.info(f"{data} -> {result}")
 
         return {"predicted_fare": result}
-
+        print("INSIDE PREDICT:", data)
     except Exception as e:
         return {"error": str(e)}

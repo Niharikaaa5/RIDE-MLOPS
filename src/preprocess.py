@@ -36,7 +36,7 @@ df = df[["distance_km", "hour", "distance_hour_interaction", "fare_amount"]]
 df.rename(columns={"fare_amount": "fare"}, inplace=True)
 
 # reduce dataset size
-df = df.sample(2000, random_state=42)
+df = df.sample(1500, random_state=42)
 
 # save
 df.to_csv("data/ride_data.csv", index=False)

@@ -2,7 +2,7 @@ stages:
   train:
     cmd: python src/train.py
     deps:
-      - src/train.py
-      - data/ride_data.csv
+    - data/ride_data.csv
+    - src/train.py
     outs:
-      - model/model.pkl
+    - model/model.pkl
